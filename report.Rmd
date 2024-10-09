@@ -1,0 +1,12 @@
+---
+title: "2015 Tree Census"
+author: "Katelyn McInerney"
+date: "2024-10-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Tree Census Data Analysis Report
