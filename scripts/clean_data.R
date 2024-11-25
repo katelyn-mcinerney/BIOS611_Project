@@ -37,6 +37,9 @@ tree_data <- tree_data_raw %>%
   filter(status != "Stump")
 print(paste0("Number of rows after filtering out stumps: ", nrow(tree_data)))
 
+# if tree status = dead (and health = NA) -> health = "Dead"
+tree_data[tree_data$status %in% c("Dead"),]$health <- "Dead"
+
 # deal with outliers in tree_dbh
 tree_data <- tree_data %>%
   filter(tree_dbh < 60) # remove outliers
