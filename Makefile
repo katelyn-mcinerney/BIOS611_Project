@@ -6,7 +6,7 @@ init:
 	mkdir -p figures
 
 clean:
-	rm report.html
+	#rm report.html
 	rm -rf data/derived_data
 	rm -rf figures
 	mkdir -p data/derived_data
@@ -14,6 +14,9 @@ clean:
 	
 data/derived_data/tree_data_cleaned.csv: scripts/clean_data.R data/source_data/2015_Street_Tree_census_-_Tree_Data_20241009.csv
 	Rscript scripts/clean_data.R
+	
+figures/tree_diameter_histogram.png: scripts/plot_tree_size_histogram.R data/derived_data/tree_data_cleaned.csv
+	Rscript scripts/plot_tree_size_histogram.R
 
 report.Rmd:
 
