@@ -7,8 +7,6 @@ library(tidyverse)
 tree_data <- read_csv("./data/derived_data/tree_data_cleaned.csv")
 
 # tree health bar chart by borough
-# if tree health = NA -> health = "Dead"
-tree_data[tree_data$status %in% c("Dead"),]$health <- "Dead"
 
 # factorize the borough names to order plot
 level_order = tree_data %>%
