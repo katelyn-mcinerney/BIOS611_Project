@@ -29,6 +29,9 @@ figures/tree_density_by_neighborhood_map.png: scripts/plot_tree_density_by_neigh
 																									 data/source_data/2010_Neighborhood_Tabulation_Areas_Map_Data/geo_export_aef8b682-921e-4e21-9e8c-586c62434166.shp
 	Rscript scripts/plot_tree_density_by_neighborhood_map.R
 
+figures/top_borough_species_barchart.png: scripts/plot_top_borough_species_barchart.R data/derived_data/tree_data_cleaned.csv
+	Rscript scripts/plot_top_borough_species_barchart.R
+
 report.Rmd:
 
 report.html: report.Rmd
