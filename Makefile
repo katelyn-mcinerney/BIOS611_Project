@@ -25,8 +25,8 @@ figures/basic_tree_map.png: scripts/plot_basic_tree_map.R data/source_data/2015_
 														data/source_data/Borough_Boundaries_Map_Data/geo_export_a58cd0c5-58c7-4f7f-9338-5d9569be528d.shp
 	Rscript scripts/plot_basic_tree_map.R
 	
-figures/plot_tree_density_by_neighborhood_map.png: scripts/plot_tree_density_by_neighborhood_map.R data/derived_data/tree_data_cleaned.csv \
-																												data/source_data/2010_Neighborhood_Tabulation_Areas_Map_Data/geo_export_aef8b682-921e-4e21-9e8c-586c62434166.shp
+figures/tree_density_by_neighborhood_map.png: scripts/plot_tree_density_by_neighborhood_map.R data/derived_data/tree_data_cleaned.csv \
+																									 data/source_data/2010_Neighborhood_Tabulation_Areas_Map_Data/geo_export_aef8b682-921e-4e21-9e8c-586c62434166.shp
 	Rscript scripts/plot_tree_density_by_neighborhood_map.R
 
 report.Rmd:
