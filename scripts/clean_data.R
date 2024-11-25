@@ -2,8 +2,6 @@
 
 # load relevant libraries 
 library(tidyverse)
-library(maps)
-library(sf)
 
 # read in data
 tree_data_raw <- read_csv("./data/source_data/2015_Street_Tree_census_-_Tree_Data_20241009.csv")
@@ -41,7 +39,7 @@ print(paste0("Number of rows after filtering out stumps: ", nrow(tree_data)))
 
 # deal with outliers in tree_dbh
 tree_data <- tree_data %>%
-  filter(tree_dbh < 75) # remove outliers
+  filter(tree_dbh < 60) # remove outliers
 print(paste0("Number of rows after removing tree_dbh outliers: ", nrow(tree_data)))
 
 # select helpful columns and rename some columns for clarity
