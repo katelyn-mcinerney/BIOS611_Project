@@ -1,12 +1,43 @@
 ---
-title: "2015 Tree Census"
+title: "2015 Tree Census Data Analysis Report"
 author: "Katelyn McInerney"
-date: "2024-10-09"
-output: html_document
+date: "2024-11-26"
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(png)
 ```
 
 # Tree Census Data Analysis Report
+
+[Intro]
+
+## Tree Diameter Distribution
+
+[Text]
+
+![Figure 1](./figures/tree_diameter_by_borough_histogram.png){width="49%"} ![Figure 2](./figures/tree_diameter_by_health_histogram.png){width="49%"}
+
+## Tree Health by Borough
+
+[Text]
+
+![Figure 3](./figures/tree_health_by_borough_barchart.png){width="100%"}
+
+## Top Tree Species by Borough
+
+[Text]
+
+![Figure 4](./figures/top_borough_species_barchart.png){width="100%"}
+
+## Tree Spatial Patterns
+
+[Text]
+
+![Figure 5](./figures/basic_tree_map.png){width="100%"}
+
+[Text]
+
+![Figure 6](./figures/tree_density_by_neighborhood_map.png){width="100%"}
