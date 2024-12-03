@@ -2,7 +2,7 @@
 title: "2015 Tree Census Data Analysis Report"
 author: "Katelyn McInerney"
 date: "2024-11-26"
-output: pdf_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
