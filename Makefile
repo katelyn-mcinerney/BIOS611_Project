@@ -6,7 +6,7 @@ init:
 	mkdir -p figures
 
 clean:
-	#rm report.html
+	rm report.html
 	rm -rf data/derived_data
 	rm -rf figures
 	mkdir -p data/derived_data
@@ -32,7 +32,12 @@ figures/tree_density_by_neighborhood_map.png: scripts/plot_tree_density_by_neigh
 figures/top_borough_species_barchart.png: scripts/plot_top_borough_species_barchart.R data/derived_data/tree_data_cleaned.csv
 	Rscript scripts/plot_top_borough_species_barchart.R
 
-report.Rmd:
+report.Rmd: figures/tree_diameter_by_borough_histogram.png figures/tree_diameter_by_health_histogram.png \
+						figures/tree_health_by_borough_barchart.png figures/basic_tree_map.png figures/tree_density_by_neighborhood_map.png \
+						figures/top_borough_species_barchart.png
+	touch report.Rmd
 
 report.html: report.Rmd
-	R -e "Sys.setenv(RSTUDIO_PANDOC=dirname(Sys.getenv('RSTUDIO_PANDOC'))); rmarkdown::render('report.Rmd', output_format = 'html_document', output_dir = '.')"
+	#R -e "Sys.setenv(RSTUDIO_PANDOC=dirname(Sys.getenv('RSTUDIO_PANDOC'))); rmarkdown::render('report.Rmd', output_format = 'html_document', output_dir = '.')"
+	R -e "rmarkdown::render('report.Rmd')"
+	
