@@ -1,6 +1,6 @@
 # NYC 2015 Street Tree Census Data Analysis Project
 
-My project for BIOS 611 is based on data from the 2015 NYC Tree Census, available at [NYC OpenData][<https://data.cityofnewyork.us/Environment/2015-Street-Tree-Census-Tree-Data/uvpi-gqnh/about_data>]. This dataset includes information about the location, species, visible problems, and health of trees on New York City streets. The dataset was collected by a mixture of volunteers, NYC Parks staff, and individuals paid by the Tree Census program. My goal with this project was to explore this dataset, looking for patterns and relationships between tree health, species, and location.
+My project for BIOS 611 is based on data from the 2015 NYC Tree Census, available at [NYC OpenData](https://data.cityofnewyork.us/Environment/2015-Street-Tree-Census-Tree-Data/uvpi-gqnh/about_data). This dataset includes information about the location, species, visible problems, and health of trees on New York City streets. The dataset was collected by a mixture of volunteers, NYC Parks staff, and individuals paid by the Tree Census program. My goal with this project was to explore this dataset, looking for patterns and relationships between tree health, species, and location.
 
 To get started, first clone my repository in your terminal:
 
