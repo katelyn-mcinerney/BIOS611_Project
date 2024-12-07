@@ -15,7 +15,8 @@ clean:
 data/derived_data/tree_data_cleaned.csv: scripts/clean_data.R data/source_data/2015_Street_Tree_census_-_Tree_Data_20241009.csv
 	Rscript scripts/clean_data.R
 	
-figures/tree_diameter_by_borough_histogram.png figures/tree_diameter_by_health_histogram.png: scripts/plot_tree_size_histogram.R data/derived_data/tree_data_cleaned.csv
+figures/tree_diameter_by_borough_histogram.png \
+figures/tree_diameter_by_health_histogram.png: scripts/plot_tree_size_histogram.R data/derived_data/tree_data_cleaned.csv
 	Rscript scripts/plot_tree_size_histogram.R
 	
 figures/tree_health_by_borough_barchart.png: scripts/plot_tree_health_by_borough_barchart.R data/derived_data/tree_data_cleaned.csv
@@ -31,10 +32,20 @@ figures/tree_density_by_neighborhood_map.png: scripts/plot_tree_density_by_neigh
 
 figures/top_borough_species_barchart.png: scripts/plot_top_borough_species_barchart.R data/derived_data/tree_data_cleaned.csv
 	Rscript scripts/plot_top_borough_species_barchart.R
+	
+figures/ADABOOST_model_accuracy.png \
+figures/ADABOOST_model_kappa.png \
+figures/ADABOOST_var_importance.png \
+figures/pca_tree_data.png \
+figures/ADABOOST_model_confusion.txt \
+figures/ADABOOST_model.txt: scripts/tree_health_by_problems.R data/derived_data/tree_data_cleaned.csv
+	Rscript scripts/tree_health_by_problems.R
 
 report.Rmd: figures/tree_diameter_by_borough_histogram.png figures/tree_diameter_by_health_histogram.png \
 						figures/tree_health_by_borough_barchart.png figures/basic_tree_map.png figures/tree_density_by_neighborhood_map.png \
-						figures/top_borough_species_barchart.png
+						figures/top_borough_species_barchart.png figures/ADABOOST_model_accuracy.png \
+						figures/ADABOOST_model_kappa.png figures/ADABOOST_var_importance.png \
+						figures/pca_tree_data.png figures/ADABOOST_model_confusion.txt figures/ADABOOST_model.txt
 	touch report.Rmd
 
 report.html: report.Rmd
