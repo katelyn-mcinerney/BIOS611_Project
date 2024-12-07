@@ -1,0 +1,22 @@
+AdaBoost.M1 
+
+456408 samples
+    45 predictor
+     3 classes: 'Fair', 'Good', 'Poor' 
+
+No pre-processing
+Resampling: Cross-Validated (5 fold, repeated 1 times) 
+Summary of sample sizes: 365127, 365126, 365125, 365126, 365128 
+Resampling results across tuning parameters:
+
+  maxdepth  mfinal  Accuracy   Kappa      
+  1         3       0.8109170  0.000000000
+  1         6       0.8112018  0.005539911
+  1         9       0.8112018  0.005539911
+  3         3       0.8111273  0.022535432
+  3         6       0.8111405  0.024548898
+  3         9       0.8111339  0.024399684
+
+Tuning parameter 'coeflearn' was held constant at a value of Breiman
+Accuracy was used to select the optimal model using the largest value.
+The final values used for the model were mfinal = 6, maxdepth = 1 and coeflearn = Breiman.
