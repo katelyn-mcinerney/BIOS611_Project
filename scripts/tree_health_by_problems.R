@@ -37,7 +37,7 @@ tree_dummy <- tree_numeric %>% select(-health, -tree_id) %>%
 colnames(tree_dummy) <- gsub(" ", "_", colnames(tree_dummy))
 
 
-## run gbm caret analysis ##
+## run adaboost caret analysis ##
 # prep data
 # classification can't handle missing values - means we'll lose all the "dead" cases :(
 tree_dummy_caret <- tree_dummy[complete.cases(tree_dummy), ]
@@ -59,7 +59,7 @@ test_caret = tree_dummy_caret[-indexes, ]
 # model training control - 5-fold CV repeated 1 time
 model_control <- trainControl(
   method = "repeatedcv",
-  number = 5,
+  number = 3,
   repeats = 1 
 )
 
@@ -74,11 +74,11 @@ model_cv <- caret::train(formula_caret, data = train_caret,
                          method = "AdaBoost.M1",
                          trControl = model_control, tuneGrid = model_grid)
 
+# save model
+save(model_cv, file = "./figures/model_cv.rda")
+
 
 ## summary stats from analysis
-# model summary
-sink("./figures/ADABOOST_model.txt"); print(model_cv); sink()
-
 # plots of model results
 model_accuracy <- ggplot(model_cv) + theme_bw()
 model_kappa <- ggplot(model_cv, metric = "Kappa") + theme_bw()
@@ -90,9 +90,8 @@ ggsave("./figures/ADABOOST_model_kappa.png", model_kappa, width = 6, height = 6,
 prob_caret <- predict(model_cv, test_caret)
 
 # confusion matrix
-sink("./figures/ADABOOST_model_confusion.txt")
-confusionMatrix(prob_caret, test_caret$health)
-sink()
+save(prob_caret, file = "./figures/model_prediction.rda")
+save(test_caret, file = "./figures/model_test_data.rda")
 
 # variable importance
 var_import <- varImp(model_cv, scale = FALSE)
