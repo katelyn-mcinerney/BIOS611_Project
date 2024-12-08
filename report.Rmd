@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(png)
 library(tidyverse)
+library(caret)
 ```
 
 # Tree Census Data Analysis Report
@@ -87,20 +88,22 @@ knitr::kables(
 
 For these two example tables, we can see that there does appear to be a non-random association between both the user type and tree health and "other" trunk problems and tree health. I next wanted to see if I could classify the trees into health categories based on the explanatory variables in the dataset. Since so many of the variables in the dataset are categorical, I had to decide which to keep and how to re-code. Out of the 44 initial variables in the tree dataset, I decided to keep as explanatory variables: tree diameter at breast height, latitute, longitude, location with respect to curb, status (alive or dead), borough name, common species name, number of stewards, user type collecting data, presence and helpfulness of guards, presence of sidewalk damage, and problems (with roots - grate, stone, other; with trunk - wires, lights, other; with branch - with light, shoes, or other). There were many variables that reflected geography at various resolutions, and I decided that the name of the borough and latitute and longitude would likely be sufficient. Since there are 132 different species in this dataset, I decided to reduce the dimensionality of this variable by grouping the species into the 20 most common species and then grouping the remaining species into an "other" category.
 
-I then used the *fastDummies* package to do one-hot encoding to create a "dummy" version of the dataset, where all the categorical variables were re-encoded as factors and as binary 0/1. I then split the data into a training and testing set with a 70/30 train-test split. I decided to use the "AdaBoost.M1" model within the *caret* package for its ability to handle multi-categorical response variables and a mixture of categorical and continuous predictors. In order to run the *caret* functions, I had to remove any `NA` values. This eliminated the `health = "Dead"` class, as all trees marked as dead had missing information for many variables - including species. Therefore, the 5-fold cross validation results were only able to classify trees into "Fair", "Good", and "Poor" health classes. Model results following training are below:
+I then used the *fastDummies* package to do one-hot encoding to create a "dummy" version of the dataset, where all the categorical variables were re-encoded as factors and as binary 0/1. I then split the data into a training and testing set with a 70/30 train-test split. I decided to use the "AdaBoost.M1" model within the *caret* package for its ability to handle multi-categorical response variables and a mixture of categorical and continuous predictors. In order to run the *caret* functions, I had to remove any `NA` values. This eliminated the `health = "Dead"` class, as all trees marked as dead had missing information for many variables - including species. Therefore, the 3-fold cross validation results were only able to classify trees into "Fair", "Good", and "Poor" health classes. Model results following training are below:
   
-```{r, echo=FALSE, results='asis'}
-res <- knitr::knit_child('./figures/ADABOOST_model.txt', quiet = TRUE)
-cat(res, sep = '\n')
+```{r, echo=FALSE}
+load("./figures/model_cv.rda")
+model_cv
 ```
+  
   
 ![](./figures/ADABOOST_model_accuracy.png){width="49%"} ![](./figures/ADABOOST_model_kappa.png){width="49%"}
   
 After training on the training dataset, I applied the model to the test set. The results from the confusion matrix are below:
   
-```{r, echo=FALSE, results='asis'}
-confusion <- knitr::knit_child('./figures/ADABOOST_model_confusion.txt', quiet = TRUE)
-cat(confusion, sep = '\n')
+```{r, echo=FALSE}
+load("./figures/model_prediction.rda")
+load("./figures/model_test_data.rda")
+confusionMatrix(prob_caret, test_caret$health)
 ```
   
 As you can see, the model performs pretty well at predicting tree health (~80%). However, that seems to be predominantly driven by the "good" category, which is the majority of the cases. The model performs much worse at predicting trees in poor or fair health. In fact, the model predicts no trees to be in poor health, and it missclassifies almost all of the trees in "fair" health to be in "good" health. However, it does seem promising that the missclassified results seem to make sense - the trees in "poor" health when missclassified tend to be predicted to be in "fair" health rather than "good" health. In an earlier version of the model that I ran, when I only used 40% of the data for training and 60% for testing, with only 2-folds, the model did much better at predicting the fair and poor classes. The sensitivity for both "fair" and "poor" was around 45% (which is still not high, but much better than this iteration). When training the first time, the optimized parameters were `mfinal=3,maxdepth=3`, which might make the difference here. If I were going forward with this project, I would want to continue to tune this model, choose a different model, or do some up or down sampling in the training data to fix this issue. 

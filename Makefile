@@ -37,15 +37,15 @@ figures/ADABOOST_model_accuracy.png \
 figures/ADABOOST_model_kappa.png \
 figures/ADABOOST_var_importance.png \
 figures/pca_tree_data.png \
-figures/ADABOOST_model_confusion.txt \
-figures/ADABOOST_model.txt: scripts/tree_health_by_problems.R data/derived_data/tree_data_cleaned.csv
+figures/model_cv.rda figures/model_prediction.rda \
+figures/model_test_data.rda: scripts/tree_health_by_problems.R data/derived_data/tree_data_cleaned.csv
 	Rscript scripts/tree_health_by_problems.R
 
 report.Rmd: figures/tree_diameter_by_borough_histogram.png figures/tree_diameter_by_health_histogram.png \
 						figures/tree_health_by_borough_barchart.png figures/basic_tree_map.png figures/tree_density_by_neighborhood_map.png \
 						figures/top_borough_species_barchart.png figures/ADABOOST_model_accuracy.png \
-						figures/ADABOOST_model_kappa.png figures/ADABOOST_var_importance.png \
-						figures/pca_tree_data.png figures/ADABOOST_model_confusion.txt figures/ADABOOST_model.txt
+						figures/ADABOOST_model_kappa.png figures/ADABOOST_var_importance.png figures/pca_tree_data.png \
+						figures/model_cv.rda figures/model_prediction.rda figures/model_test_data.rda
 	touch report.Rmd
 
 report.html: report.Rmd
